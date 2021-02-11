@@ -14,20 +14,22 @@ extension UIColor {
     /// 色を重ね合わせたときの色を生成する
     /// 参考 https://ja.wikipedia.org/wiki/アルファブレンド
     func overlayColor(_ otherColor: UIColor) -> UIColor {
-        var (r1, g1, b1, a1) = (CGFloat(0), CGFloat(0), CGFloat(0), CGFloat(0))
-        var (r2, g2, b2, a2) = (CGFloat(0), CGFloat(0), CGFloat(0), CGFloat(0))
+        /// 背景
+        var (dstR, dstG, dstB, dstA) = (CGFloat(0), CGFloat(0), CGFloat(0), CGFloat(0))
+        /// 前景
+        var (srcR, srcG, srcB, srcA) = (CGFloat(0), CGFloat(0), CGFloat(0), CGFloat(0))
 
-        getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
-        otherColor.getRed(&r2, green: &g2, blue: &b2, alpha: &a2)
+        getRed(&dstR, green: &dstG, blue: &dstB, alpha: &dstA)
+        otherColor.getRed(&srcR, green: &srcG, blue: &srcB, alpha: &srcA)
 
-        let a3 = a1 + a2 * (1 - a1)
-        let r3 = (r2 * a2 + r1 * a1 * (1 - a2)) / a3
-        let g3 = (g2 * a2 + g1 * a1 * (1 - a2)) / a3
-        let b3 = (b2 * a2 + b1 * a1 * (1 - a2)) / a3
-        return UIColor(red: r3,
-                       green: g3,
-                       blue: b3,
-                       alpha: a3)
+        let outA = srcA + dstA - dstA * srcA
+        let outR = (srcR * srcA + dstR * dstA * (1 - srcA)) / outA
+        let outG = (srcG * srcA + dstG * dstA * (1 - srcA)) / outA
+        let outB = (srcB * srcA + dstB * dstA * (1 - srcA)) / outA
+        return UIColor(red: outR,
+                       green: outG,
+                       blue: outB,
+                       alpha: outA)
     }
 }
 
