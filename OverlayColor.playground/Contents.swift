@@ -36,13 +36,27 @@ class MyViewController: UIViewController {
         let view = UIView()
         view.backgroundColor = UIColor(patternImage: UIImage(named: "background.png")!)
 
+        let colorA = UIColor.yellow.withAlphaComponent(0.70)
+        let colorB = UIColor.black.withAlphaComponent(0.80)
+
         let colorViewA = UIView(frame: CGRect(x: 20, y: 20, width: 200, height: 200))
-            .withBackgroundColor(UIColor.yellow.withAlphaComponent(0.70))
+            .withBackgroundColor(colorA)
         let colorViewB = UIView(frame: CGRect(x: 70, y: 70, width: 200, height: 200))
-            .withBackgroundColor(UIColor.black.withAlphaComponent(0.80))
+            .withBackgroundColor(colorB)
+
+        let colorViewC = UIView(frame: CGRect(x: 20, y: 320, width: 100, height: 100))
+            .withBackgroundColor(colorA)
+        let colorViewD = UIView(frame: CGRect(x: 230, y: 320, width: 100, height: 100))
+            .withBackgroundColor(colorB)
+        let colorViewE = UIView(frame: CGRect(x: 125, y: 320, width: 100, height: 100))
+            .withBackgroundColor(colorA.overlayColor(colorB))
 
         view.addSubview(colorViewA)
         view.addSubview(colorViewB)
+
+        view.addSubview(colorViewC)
+        view.addSubview(colorViewD)
+        view.addSubview(colorViewE)
 
         self.view = view
     }
